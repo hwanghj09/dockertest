@@ -1,0 +1,71 @@
+docker build -t [이름] .
+
+docker imagse -> 도커 이미지들 확인
+
+docker login -> 로그인
+
+docker hub에 올리기
+docker tag [이름] hwanghj09/[이름]:latest
+docker push hwanghj09/[이름]:latest -> 업로드
+
+받기
+docker pull ~~~
+
+docker ps -> 현재 실행중인거 확인
+
+
+
+# 1️⃣ Python 3.13 기본 이미지 사용
+FROM python:3.13-slim
+
+# 2️⃣ 작업 디렉토리 설정
+WORKDIR /app
+
+# 3️⃣ 필요 패키지 복사 및 설치
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 4️⃣ 앱 소스 복사
+COPY app ./app
+
+# 5️⃣ 정적 파일 복사 (optional)
+COPY static ./static
+
+# 6️⃣ FastAPI 실행 명령
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+각 단계 설명
+
+FROM python:3.13-slim
+
+Python 3.13 최소 이미지를 사용해서 용량 최소화
+
+WORKDIR /app
+
+컨테이너 안에서 작업할 디렉토리 지정
+
+패키지 설치
+
+requirements.txt 복사 후 설치
+
+--no-cache-dir → 불필요한 캐시 제거
+
+소스 복사
+
+app/ 폴더 전체를 컨테이너로 복사
+
+모듈 구조를 그대로 유지
+
+정적 파일 복사
+
+static/ 폴더가 있으면 그대로 복사
+
+FastAPI에서 StaticFiles로 서빙 가능
+
+CMD: uvicorn 실행
+
+app.main:app → FastAPI 인스턴스가 정의된 위치
+
+--host 0.0.0.0 → 외부 접속 허용
+
+--port 8000 → 컨테이너 내 포트
