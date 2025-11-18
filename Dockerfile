@@ -10,6 +10,7 @@ WORKDIR /
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+COPY 정리.txt .
 
 # 4. FastAPI 앱 복사
 COPY main.py .

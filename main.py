@@ -6,4 +6,4 @@ app = FastAPI()
 
 @app.get("/")
 def root():
-    return {"message": "FastAPI Docker build test success!"}
+    return {"message": "태윤이 바보 멍청이 똥개"}
